@@ -28,7 +28,14 @@ func (list *LinkedList[T]) RemoveFirstValueMatch(value T) *LinkedList[T] {
 	return list
 }
 
-func (list *LinkedList[T]) GetValueByIndex(index uint32) (T, bool) {
+func (list *LinkedList[T]) ReadNodeOnIndex(index uint32) (node[T], bool) {
+	if list.head == nil {
+		return node[T]{}, false
+	}
+	return list.head.Offset(index)
+}
+
+func (list *LinkedList[T]) ReadValueOnIndex(index uint32) (T, bool) {
 	if list.head == nil {
 		return node[T]{}.Value, false
 	}
@@ -36,9 +43,12 @@ func (list *LinkedList[T]) GetValueByIndex(index uint32) (T, bool) {
 	return n.Value, found
 }
 
-func (list *LinkedList[T]) GetNodeByIndex(index uint32) (node[T], bool) {
-	if list.head == nil {
-		return node[T]{}, false
+func (list *LinkedList[T]) PopWithValueOnIndex(index uint32) (T, bool) {
+	n := node[T]{next: list.head}
+	val, found := n.popOnOffsetAfterHead(index)
+	if found {
+		list.size--
+		list.head = n.next
 	}
-	return list.head.Offset(index)
+	return val, found
 }

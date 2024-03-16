@@ -12,12 +12,16 @@ func main() {
 		Prepend(60).
 		Prepend(81).
 		Prepend(80).
-		RemoveFirstValueMatch(60).
 		Prepend(43).
-		RemoveFirstValueMatch(81).
+		RemoveFirstValueMatch(80).
 		Prepend(62)
 
-	if val, found := list.GetNodeByIndex(3); found {
-		fmt.Println(val.Value)
+	if val, found := list.PopWithValueOnIndex(1); found {
+		fmt.Println(val)
+		fmt.Println(
+			list.
+				Prepend(33).
+				Prepend(42).
+				ReadValueOnIndex(3))
 	}
 }
