@@ -6,7 +6,14 @@ import (
 )
 
 func main() {
-	var list utils.LinkedList[string]
-	list.Prepend("60").Prepend("81").Prepend("80").RemoveFirstValueMatch("81")
-	fmt.Println(list.GetValueByIndex(0))
+	list := utils.LinkedList[int]{}
+	list.
+		Prepend(60).
+		Prepend(81).
+		Prepend(80).
+		RemoveFirstValueMatch(81)
+
+	if val, found := list.GetValueByIndex(1); found {
+		fmt.Println(val)
+	}
 }
