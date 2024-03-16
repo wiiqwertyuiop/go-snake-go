@@ -15,17 +15,16 @@ func (n node[T]) Offset(i uint32) (node[T], bool) {
 	return n, true
 }
 
-func (n *node[T]) removeFirstValueMatch(v T) bool {
-	if n != nil && n.Value == v {
-		// Note, I'm not able to to erase the head, I can only clear the values
-		// Its up to the caller to erase the head
-		if n.next != nil {
-			n.Value = n.next.Value
+func (n *node[T]) removeFirstValueMatchAfterHead(v T) bool {
+	if n.next == nil {
+		return false
+	} else if n.next.Value == v {
+		if n.next.next != nil {
 			n.next = n.next.next
+		} else {
+			n.next = nil
 		}
 		return true
-	} else if n == nil || n.next == nil {
-		return false
 	}
-	return n.next.removeFirstValueMatch(v)
+	return n.next.removeFirstValueMatchAfterHead(v)
 }

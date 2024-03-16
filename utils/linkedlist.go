@@ -20,11 +20,10 @@ func (list *LinkedList[T]) Prepend(val T) *LinkedList[T] {
 }
 
 func (list *LinkedList[T]) RemoveFirstValueMatch(value T) *LinkedList[T] {
-	if list.head.removeFirstValueMatch(value) {
+	n := node[T]{next: list.head}
+	if n.removeFirstValueMatchAfterHead(value) {
 		list.size--
-		if list.size == 0 {
-			list.head = nil
-		}
+		list.head = n.next
 	}
 	return list
 }
