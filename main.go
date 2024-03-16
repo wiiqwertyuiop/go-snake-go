@@ -13,7 +13,7 @@ func main() {
 		Prepend(80).
 		RemoveFirstValueMatch(81)
 
-	if val, found := list.GetValueByIndex(1); found {
-		fmt.Println(val)
+	if val, found := list.GetNodeByIndex(1); found {
+		fmt.Println(val.Value)
 	}
 }
