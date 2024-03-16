@@ -11,9 +11,10 @@ func main() {
 		Prepend(60).
 		Prepend(81).
 		Prepend(80).
-		RemoveFirstValueMatch(81)
+		RemoveFirstValueMatch(81).
+		Prepend(62)
 
-	if val, found := list.GetNodeByIndex(1); found {
+	if val, found := list.GetNodeByIndex(2); found {
 		fmt.Println(val.Value)
 	}
 }

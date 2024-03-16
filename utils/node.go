@@ -17,9 +17,7 @@ func (n node[T]) Offset(i uint32) (node[T], bool) {
 
 func (n *node[T]) removeFirstValueMatch(v T) bool {
 	if n != nil && n.Value == v {
-		if n.next == nil {
-			n = nil
-		} else {
+		if n.next != nil {
 			n.Value = n.next.Value
 			n.next = n.next.next
 		}

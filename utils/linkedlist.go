@@ -22,6 +22,9 @@ func (list *LinkedList[T]) Prepend(val T) *LinkedList[T] {
 func (list *LinkedList[T]) RemoveFirstValueMatch(value T) *LinkedList[T] {
 	if list.head.removeFirstValueMatch(value) {
 		list.size--
+		if list.size == 0 {
+			list.head = nil
+		}
 	}
 	return list
 }
