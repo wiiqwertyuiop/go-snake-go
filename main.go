@@ -3,6 +3,7 @@ package main
 import (
 	"image/color"
 	"log"
+	"math/rand"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
@@ -93,7 +94,7 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 func main() {
 	ebiten.SetWindowSize(640, 480)
 	ebiten.SetWindowTitle("Go Snake Go")
-	if err := ebiten.RunGame(&Game{pXpos: 5, pYpos: 5, pSpd: 3}); err != nil {
+	if err := ebiten.RunGame(&Game{pXpos: rand.Intn(lastCell), pYpos: rand.Intn(lastCell), pSpd: 3}); err != nil {
 		log.Fatal(err)
 	}
 }
