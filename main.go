@@ -12,7 +12,7 @@ import (
 // Game setup
 const cellLength = 10
 const borderSize = 0
-const numberOfCells = 20
+const numberOfCells = 50
 
 const cellSize = borderSize + cellLength
 const screenSize = cellSize*numberOfCells + borderSize
@@ -25,6 +25,7 @@ type Game struct {
 	pXpos int
 	pYpos int
 	pDir  int
+	pSpd  int
 
 	// Not needed but just for fun (also wanted to keep positions whole numbers)
 	fps int
@@ -45,7 +46,7 @@ func (g *Game) Update() error {
 	}
 
 	// Update speed every certain number of frames
-	if g.fps%7 == 0 {
+	if g.fps%g.pSpd == 0 {
 		switch g.pDir {
 		case 1:
 			g.pXpos++
@@ -92,7 +93,7 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 func main() {
 	ebiten.SetWindowSize(640, 480)
 	ebiten.SetWindowTitle("Go Snake Go")
-	if err := ebiten.RunGame(&Game{}); err != nil {
+	if err := ebiten.RunGame(&Game{pXpos: 5, pYpos: 5, pSpd: 3}); err != nil {
 		log.Fatal(err)
 	}
 }
