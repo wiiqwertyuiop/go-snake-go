@@ -1,6 +1,7 @@
 package main
 
 import (
+	linkedlist "gosnakego/utils"
 	"image/color"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -18,5 +19,9 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	}
 
 	// Draw player
-	vector.DrawFilledRect(screen, float32(g.pXpos*cellSize+borderSize), float32(g.pYpos*cellSize+borderSize), 10, 10, color.RGBA{150, 0, 0, 0}, false)
+	g.snakeTiles.LoopActionOnListRemoveNextOnFalse(func(curNode *linkedlist.Node[[2]int]) bool {
+		tile := curNode.Value
+		vector.DrawFilledRect(screen, float32(tile[0]*cellSize+borderSize), float32(tile[1]*cellSize+borderSize), 10, 10, color.RGBA{150, 0, 0, 0}, false)
+		return true
+	})
 }

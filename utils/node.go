@@ -1,21 +1,21 @@
 package linkedlist
 
-type node[T comparable] struct {
+type Node[T comparable] struct {
 	Value T
-	next  *node[T]
+	next  *Node[T]
 }
 
-func (n node[T]) Offset(i uint32) (node[T], bool) {
+func (n Node[T]) Offset(i int) (*Node[T], bool) {
 	if i > 0 {
 		if n.next == nil {
-			return node[T]{}, false
+			return &Node[T]{}, false
 		}
 		return n.next.Offset(i - 1)
 	}
-	return n, true
+	return &n, true
 }
 
-func (n *node[T]) removeFirstValueMatchAfterHead(v T) bool {
+func (n *Node[T]) removeFirstValueMatchAfterHead(v T) bool {
 	if n.next == nil {
 		return false
 	} else if n.next.Value == v {
@@ -29,9 +29,9 @@ func (n *node[T]) removeFirstValueMatchAfterHead(v T) bool {
 	return n.next.removeFirstValueMatchAfterHead(v)
 }
 
-func (n *node[T]) popOnOffsetAfterHead(i uint32) (T, bool) {
+func (n *Node[T]) popOnOffsetAfterHead(i int) (T, bool) {
 	if n.next == nil {
-		return node[T]{}.Value, false
+		return Node[T]{}.Value, false
 	} else if i > 0 {
 		return n.next.popOnOffsetAfterHead(i - 1)
 	}
