@@ -47,6 +47,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		}
 	}
 
+	// Handle game overs
 	playerColor := color.RGBA{150, 0, 0, 0}
 	if g.gameOver {
 		playerColor = color.RGBA{150, 0, 150, 0}
@@ -62,5 +63,4 @@ func (g *Game) Draw(screen *ebiten.Image) {
 
 	// Draw food
 	vector.DrawFilledRect(screen, float32(g.foodXpos*cellSize+borderSize), float32(g.foodYpos*cellSize+borderSize), 10, 10, color.RGBA{0, 150, 0, 0}, false)
-
 }

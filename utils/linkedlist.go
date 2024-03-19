@@ -1,6 +1,7 @@
-// Small wrapper class around node's to keep track of the head and size of list
-// Also provides some safety
+// Customized linked list for snake!
 //
+// Small wrapper class around node's to keep track of the head and size of list
+// Also provides some helper functions and safety
 
 package linkedlist
 
@@ -46,6 +47,8 @@ func (list *LinkedList[T]) PopWithValueOnIndex(index int) (T, bool) {
 func (list *LinkedList[T]) LoopActionOnListRemoveNextOnFalse(callback func(curNode *Node[T]) bool) {
 	for n := list.head.next; n != nil; n = n.next {
 		if !callback(n) {
+			// NOTE: i only use this to chop off the bit of the snake...
+			// Ideally you would want to make sure there is nothing else connected after it
 			n.next = nil
 			list.size--
 			break

@@ -15,6 +15,7 @@ func (g *Game) Update() error {
 	if g.snakeTiles.Size() == 0 {
 		g.initalizeGame()
 	} else if g.gameOver {
+		// TODO: Add reset here
 		return nil
 	} else {
 		g.mainGame()
