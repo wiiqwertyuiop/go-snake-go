@@ -7,7 +7,7 @@ I mostly made this for two reasons:
 1) To learn Go! It is a fantastic language, and I have wanted to learn it more!
 2) Generating the snake, and food were both interesting problems to me.
 
-## Explination
+## Explanation
 
 Most snake games you see use arrays, and a lot of looping. People also seem to generate the food by randomly selecting a tile, and then checking if the snake is on it, and if so spawns food on the tile, or generates another one until an empty spot is found. This method works, but I am not a fan of it, as it is theoretically possible to never find an empty space like this! Especially once the snake begins to fill up the screen, generation can take longer and longer (technically).
 
@@ -17,10 +17,10 @@ For food generation this is nice because I can keep a list of empty spaces, and 
 
 ## Missing features
 
-There are many things that could be added to this, to imporve it as a game:
+There are many things that could be added to this, to improve it as a game:
 
 1) Score
-2) Easier reseting
+2) Easier resetting
 3) Difficulties
 4) etc, etc...
 
