@@ -3,7 +3,6 @@ package main
 import (
 	linkedlist "gosnakego/utils"
 	"log"
-	"math/rand"
 
 	"github.com/hajimehoshi/ebiten/v2"
 )
@@ -22,7 +21,8 @@ const lastCell = numberOfCells - 1
 type Game struct {
 	// Player coordinates
 	pDir       int
-	pSpd       int
+	lastDir    int
+	score      int
 	snakeTiles linkedlist.LinkedList[[2]int] // [X, Y] positions
 
 	// Food coordinates
@@ -31,37 +31,20 @@ type Game struct {
 
 	// FPS not needed but just for fun (also wanted to keep positions whole numbers)
 	fps           int
-	emptyMapTiles linkedlist.LinkedList[int]
+	gameSpd       int
+	emptyMapTiles linkedlist.LinkedList[[2]int]
+
+	gameOver bool
 }
 
 func main() {
 	ebiten.SetWindowSize(640, 480)
 	ebiten.SetWindowTitle("Go Snake Go")
 
-	// Create map
-	m := linkedlist.LinkedList[int]{}
-	for i := 1; i <= numberOfCells*numberOfCells; i++ {
-		m.Prepend(i)
-	}
-
-	// Initalize player
-	startingXpos := rand.Intn(lastCell)
-	startingYpos := rand.Intn(lastCell)
-	snakeStart := linkedlist.LinkedList[[2]int]{}
-	snakeStart.Prepend([2]int{startingXpos, startingYpos})
-	m.RemoveFirstValueMatch(startingXpos + startingYpos)
-
-	// Spawn food
-	mapPos, ok := m.GetNodeOnIndex(rand.Intn(m.Size()))
-	if !ok {
-		panic("Error spawning food!")
-	}
-
-	foodXpos := (mapPos.Value / numberOfCells) - 1
-	foodYpos := (mapPos.Value % numberOfCells) - 1
+	initFont()
 
 	// Run game
-	if err := ebiten.RunGame(&Game{pSpd: 10, snakeTiles: snakeStart, emptyMapTiles: m, foodXpos: foodXpos, foodYpos: foodYpos}); err != nil {
+	if err := ebiten.RunGame(&Game{}); err != nil {
 		log.Fatal(err)
 	}
 }
