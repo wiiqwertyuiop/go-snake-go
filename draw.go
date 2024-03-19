@@ -24,4 +24,8 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		vector.DrawFilledRect(screen, float32(tile[0]*cellSize+borderSize), float32(tile[1]*cellSize+borderSize), 10, 10, color.RGBA{150, 0, 0, 0}, false)
 		return true
 	})
+
+	// Draw food
+	vector.DrawFilledRect(screen, float32(g.foodXpos*cellSize+borderSize), float32(g.foodYpos*cellSize+borderSize), 10, 10, color.RGBA{0, 150, 0, 0}, false)
+
 }

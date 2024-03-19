@@ -2,6 +2,7 @@ package main
 
 import (
 	linkedlist "gosnakego/utils"
+	"math/rand"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
@@ -29,10 +30,12 @@ func (g *Game) updatePlayer() [2]int {
 	} else if inpututil.IsKeyJustPressed(ebiten.KeyDown) && (g.pDir != 3 || g.snakeTiles.Size() == 1) {
 		g.pDir = 4
 	} else if inpututil.IsKeyJustPressed(ebiten.KeyA) {
-		// Debug: increase snake size
-		for i := 0; i < 10; i++ {
+		// Debug: increase snake size and spawn food
+		for i := 0; i < 15; i++ {
 			g.snakeTiles.Prepend(curPos)
 		}
+		g.emptyMapTiles.RemoveFirstValueMatch(curPos[0] + curPos[1])
+		g.SpawnFood()
 	}
 
 	// Update speed every certain number of frames
@@ -67,7 +70,7 @@ func (g *Game) updatePlayer() [2]int {
 func (g *Game) updateMap(newPos [2]int) {
 	// Update snake on map
 	g.snakeTiles.Prepend(newPos)
-	delete(g.emptyMapTiles, newPos[0]+newPos[1])
+	g.emptyMapTiles.RemoveFirstValueMatch(newPos[0] + newPos[1])
 
 	// Check for snake contact, and remove old snake pieces
 	g.snakeTiles.LoopActionOnListRemoveNextOnFalse(func(curNode *linkedlist.Node[[2]int]) bool {
@@ -78,9 +81,19 @@ func (g *Game) updateMap(newPos [2]int) {
 				panic("Something went wrong removing the tail")
 			}
 			// The old tail is now a valid empty space
-			g.emptyMapTiles[oldTail.Value[0]+oldTail.Value[1]] = true
+			g.emptyMapTiles.Prepend(oldTail.Value[0] + oldTail.Value[1])
 			return false
 		}
 		return true
 	})
+}
+
+func (g *Game) SpawnFood() {
+	mapPos, ok := g.emptyMapTiles.GetNodeOnIndex(rand.Intn(g.emptyMapTiles.Size()))
+	if !ok {
+		panic("Error spawning food!")
+	}
+
+	g.foodXpos = mapPos.Value / numberOfCells
+	g.foodYpos = mapPos.Value % numberOfCells
 }

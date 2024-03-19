@@ -11,7 +11,7 @@ import (
 // Game setup
 const cellLength = 10
 const borderSize = 0
-const numberOfCells = 35
+const numberOfCells = 20
 
 const cellSize = borderSize + cellLength
 const screenSize = cellSize*numberOfCells + borderSize
@@ -25,9 +25,13 @@ type Game struct {
 	pSpd       int
 	snakeTiles linkedlist.LinkedList[[2]int] // [X, Y] positions
 
+	// Food coordinates
+	foodXpos int
+	foodYpos int
+
 	// FPS not needed but just for fun (also wanted to keep positions whole numbers)
 	fps           int
-	emptyMapTiles map[int]bool
+	emptyMapTiles linkedlist.LinkedList[int]
 }
 
 func main() {
@@ -35,9 +39,9 @@ func main() {
 	ebiten.SetWindowTitle("Go Snake Go")
 
 	// Create map
-	m := map[int]bool{}
-	for i := 0; i < numberOfCells*numberOfCells; i++ {
-		m[i] = true
+	m := linkedlist.LinkedList[int]{}
+	for i := 1; i <= numberOfCells*numberOfCells; i++ {
+		m.Prepend(i)
 	}
 
 	// Initalize player
@@ -45,10 +49,19 @@ func main() {
 	startingYpos := rand.Intn(lastCell)
 	snakeStart := linkedlist.LinkedList[[2]int]{}
 	snakeStart.Prepend([2]int{startingXpos, startingYpos})
-	delete(m, startingXpos+startingYpos)
+	m.RemoveFirstValueMatch(startingXpos + startingYpos)
+
+	// Spawn food
+	mapPos, ok := m.GetNodeOnIndex(rand.Intn(m.Size()))
+	if !ok {
+		panic("Error spawning food!")
+	}
+
+	foodXpos := (mapPos.Value / numberOfCells) - 1
+	foodYpos := (mapPos.Value % numberOfCells) - 1
 
 	// Run game
-	if err := ebiten.RunGame(&Game{pSpd: 3, snakeTiles: snakeStart, emptyMapTiles: m}); err != nil {
+	if err := ebiten.RunGame(&Game{pSpd: 10, snakeTiles: snakeStart, emptyMapTiles: m, foodXpos: foodXpos, foodYpos: foodYpos}); err != nil {
 		log.Fatal(err)
 	}
 }
