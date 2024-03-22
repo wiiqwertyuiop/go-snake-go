@@ -22,9 +22,6 @@ func initFont() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if err != nil {
-		log.Fatal(err)
-	}
 	mplusBigFont, err = opentype.NewFace(tt, &opentype.FaceOptions{
 		Size:    numberOfCells,
 		DPI:     72,

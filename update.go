@@ -41,7 +41,7 @@ func (g *Game) initalizeGame() {
 	// Spawn food
 	g.SpawnFood()
 
-	g.gameSpd = 20
+	g.gameSpd = 15
 }
 
 func (g *Game) mainGame() {
@@ -117,6 +117,7 @@ func (g *Game) updateMap(newPos [2]int) {
 			if !ok {
 				panic("Something went wrong removing the tail")
 			}
+			// Make sure we are not freeing up a space with "stacked" snake pieces
 			if curNode.Value != oldTail.Value {
 				// The old tail is now a valid empty space
 				g.emptyMapTiles.Prepend(oldTail.Value)
