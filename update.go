@@ -117,8 +117,10 @@ func (g *Game) updateMap(newPos [2]int) {
 			if !ok {
 				panic("Something went wrong removing the tail")
 			}
-			// The old tail is now a valid empty space
-			g.emptyMapTiles.Prepend(oldTail.Value)
+			if curNode.Value != oldTail.Value {
+				// The old tail is now a valid empty space
+				g.emptyMapTiles.Prepend(oldTail.Value)
+			}
 			return false
 		}
 		return true
@@ -128,7 +130,6 @@ func (g *Game) updateMap(newPos [2]int) {
 	if newPos[0] == g.foodXpos && newPos[1] == g.foodYpos {
 		g.snakeTiles.Prepend(newPos)
 		g.snakeTiles.Prepend(newPos)
-		g.emptyMapTiles.RemoveFirstValueMatch(newPos)
 		g.SpawnFood()
 		g.score++
 
