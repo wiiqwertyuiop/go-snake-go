@@ -29,22 +29,21 @@ type Game struct {
 	foodXpos int
 	foodYpos int
 
-	// FPS not needed but just for fun (also wanted to keep positions whole numbers)
-	fps           int
-	gameSpd       int
+	// frameCount not needed, but just for fun (also wanted to keep positions whole numbers)
+	frameCount    int
+	updateFrame   int
 	emptyMapTiles linkedlist.LinkedList[[2]int]
 
 	gameOver bool
 }
 
 func main() {
+	initFont()
 	ebiten.SetWindowSize(640, 480)
 	ebiten.SetWindowTitle("Go Snake Go")
 
-	initFont()
-
 	// Run game
-	if err := ebiten.RunGame(&Game{}); err != nil {
+	if err := ebiten.RunGame(&Game{updateFrame: 15}); err != nil {
 		log.Fatal(err)
 	}
 }

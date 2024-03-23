@@ -9,7 +9,7 @@ import (
 )
 
 func (g *Game) Update() error {
-	g.fps = (g.fps + 1) % 60 // "FPS"
+	g.frameCount = (g.frameCount + 1) % g.updateFrame // "FPS"
 
 	// Handle different game states
 	if g.snakeTiles.Size() == 0 {
@@ -40,8 +40,6 @@ func (g *Game) initalizeGame() {
 
 	// Spawn food
 	g.SpawnFood()
-
-	g.gameSpd = 15
 }
 
 func (g *Game) mainGame() {
@@ -57,7 +55,7 @@ func (g *Game) mainGame() {
 	}
 
 	// Update every certain number of frames
-	if g.fps%g.gameSpd == 0 && g.pDir != 0 {
+	if g.frameCount == 0 && g.pDir != 0 {
 		g.updateMap(g.updatePlayer())
 	}
 }
@@ -135,8 +133,8 @@ func (g *Game) updateMap(newPos [2]int) {
 		g.score++
 
 		// Increase speed every ertain amount of food collected
-		if g.score%5 == 0 && g.gameSpd > 8 {
-			g.gameSpd--
+		if g.score%5 == 0 && g.updateFrame > 8 {
+			g.updateFrame--
 		}
 	}
 }
