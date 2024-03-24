@@ -4,9 +4,11 @@ import (
 	linkedlist "gosnakego/utils"
 	"image/color"
 	"log"
+	"strconv"
 
 	"github.com/hajimehoshi/ebiten/examples/resources/fonts"
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/text"
 	"github.com/hajimehoshi/ebiten/v2/vector"
 	"golang.org/x/image/font"
@@ -33,7 +35,7 @@ func initFont() {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	// Clear screen
+	// Fill screen
 	screen.Fill(color.RGBA{15, 15, 15, 0})
 
 	// Draw Grid
@@ -48,6 +50,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	playerColor := color.RGBA{150, 0, 0, 0}
 	if g.gameOver {
 		playerColor = color.RGBA{150, 0, 150, 0}
+		ebitenutil.DebugPrint(screen, "SCORE: "+strconv.Itoa(g.score))
 		text.Draw(screen, "GAME OVER", mplusBigFont, numberOfCells+numberOfCells, numberOfCells+numberOfCells, color.White)
 	}
 

@@ -19,7 +19,7 @@ const screenSize = cellSize*numberOfCells + borderSize
 const lastCell = numberOfCells - 1
 
 type Game struct {
-	// Player coordinates
+	// Player
 	pDir       int
 	lastDir    int
 	score      int

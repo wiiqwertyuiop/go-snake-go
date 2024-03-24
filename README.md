@@ -23,10 +23,11 @@ This method works, but I am not a fan of it. It is theoretically possible to nev
 
 There are many things that could be added to this, to improve it as a game:
 
-1) Score
+1) Score display
 2) Easier resetting
 3) Difficulties
 4) Sound
-5) etc, etc...
+5) Few more optimizations
+6) etc, etc...
 
 However this has served well enough as a learning project, and whats left is more trivial/tedious to add than is worth (especially for a snake clone 😄).

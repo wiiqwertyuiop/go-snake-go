@@ -100,6 +100,7 @@ func (g *Game) updateMap(newPos [2]int) {
 	g.emptyMapTiles.RemoveFirstValueMatch(newPos)
 	head := true
 	// Check for snake contact, and remove old snake pieces
+	// NOTE: We could actually do the draw here as well, if this moved
 	g.snakeTiles.LoopActionOnListRemoveNextOnFalse(func(curNode *linkedlist.Node[[2]int]) bool {
 		// Handle snake touching itself
 		if newPos == curNode.Value {
