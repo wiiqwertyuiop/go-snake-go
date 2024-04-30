@@ -13,11 +13,9 @@ When you think about how to generate food on the map, you realize you need to sp
 
 This method works, but I am not a fan of it. It is theoretically possible to never find an empty space like this! Especially once the snake begins to fill up the screen, generation can take longer and longer (technically). 
 
- My version differs in the fact that, instead of using arrays (like you will see in most snake games), we can use linked lists. Linked lists have the known benefit of faster removal and item additions than arrays.
+ My version differs in the fact that, instead of using arrays (like you will see in most snake games), we can use linked lists. ~~Linked lists have the known benefit of faster removal and item additions than arrays.~~ This is not true! However it was still fun doing it this way!
 
- For food generation this is nice because I can keep a list of empty spaces, and choose a random tile from this list, to get a valid tile. Whenever a space gets taken away, we can remove it from this list (again in a faster way than arrays can), and when one opens up, we can add it back to the list! You are always guaranteed to get a free open space in this way. 
- 
- This is also beneficial for the snake, because all of the pieces connect with each other, and it is super easy to keep track of the head, and also grow the snake. Prepending to the front of array involves shifting all other elements to the right, with a linked list it can be much more effecient.
+ For food generation this is nice because I can keep a list of empty spaces, and choose a random tile from this list, to get a valid tile. Whenever a space gets taken away, we can remove it from this list, and when one opens up, we can add it back to the list! You are always guaranteed to get a free open space in this way. This is also beneficial for the snake, because all of the pieces connect with each other.
 
 ## Missing features
 
