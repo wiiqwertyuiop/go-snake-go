@@ -1,5 +1,7 @@
 # Go Snake Go!
 
+<img src="https://github.com/user-attachments/assets/0e8981a0-5f76-4fd7-ab9c-62c3c29208e7" width="300">
+
 Nothing fancy, just a basic snake game written in Go; a VERY basic version of this.
 
 I mostly made this for two reasons:
